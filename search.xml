@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title><![CDATA[Hello World]]></title>
+    <title><![CDATA[flex]]></title>
     <url>%2Fhexo%2F2019%2F08%2F21%2Fhello-world%2F</url>
-    <content type="text"><![CDATA[Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick Start Create a new post1$ hexo new "My New Post" More info: Writing Run server1$ hexo server More info: Server Generate static files1$ hexo generate More info: Generating Deploy to remote sites1$ hexo deploy More info: Deployment]]></content>
+    <content type="text"><![CDATA[布局是css的重点之一，提高代码的重用性，提高你的工作效率。 概念:flex布局：英文全称Flexible Box,就是弹性布局的意思。采用Flex布局的元素，称为Flex容器（flex container），简称”容器”。它的所有子元素自动成为容器成员，称为Flex项目（flex item），简称”项目”。 一、作用在容器上的属性（我这里只列举我们工作中经常用到的。） 1、flex-direction：决定主轴的方向 ，值有 row row-reverse column column-reverse row:水平 正序排列 row-reverse:水平 倒序排列 column:纵向 正序排列 column-reverse:纵向 倒序排列 2、flex-warp：决定项目成员怎么换行。 nowrap wrap wrap-reverse nowrap：不换行 默认的 wrap：换行，第一行在上方。 wrap-reverse：换行，第一行在下方。 3、justify-content:决定了项目成员的对齐方式 flex-start | flex-end | center | space-between | space-around; 4、align-items:项目在交叉轴上如何对齐 flex-start | flex-end | center | baseline | stretch; 5、align-content:多根轴线的对齐方式。 align-content: flex-start | flex-end | center | space-between | space-around | stretch; 二、封装代码：命名一个class名字，放在一个公用文件夹，用的时候可以直接调用。 垂直居中： 123display: flex; justify-content: center; align-items: center; 水平居中： 12display: flex;justify-content: center;]]></content>
   </entry>
 </search>
