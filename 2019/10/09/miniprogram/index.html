@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>
+    小程序页面滚动选型卡置顶 |
+    
+    小米</title>
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="/hexo/css/style.css">
+  
+    <link rel="stylesheet" href="/hexo/fancybox/jquery.fancybox.min.css">
+  
+  <script src="/hexo/js/pace.min.js"></script>
+</head>
+</html>
+<body>
+<main class="content">
+  <section class="outer">
+  
+
+<article id="post-miniprogram" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      小程序页面滚动选型卡置顶
+    </h1>
+  
+  
+
+
+
+
+      </header>
+    
+
+    
+      <div class="article-meta">
+        <a href="/hexo/2019/10/09/miniprogram/" class="article-date">
+  <time datetime="2019-10-09T12:59:38.000Z" itemprop="datePublished">2019-10-09</time>
+</a>
+        
+      </div>
+    
+
+    
+      
+    <div class="tocbot"></div>
+
+
+
+
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+        <h3 id="wxml默认布局"><a href="#wxml默认布局" class="headerlink" title="wxml默认布局"></a>wxml默认布局</h3><a id="more"></a>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;view class=&quot;container&quot;&gt;</span><br><span class="line">&lt;view class=&quot;banner&quot;&gt;&lt;/view&gt;</span><br><span class="line">  &lt;view class=&quot;tab &#123;&#123;bannerH&lt;scrollTop?&apos;fixNav&apos;:&apos;&apos;&#125;&#125;&quot;&gt;</span><br><span class="line">   &lt;block wx:for=&quot;&#123;&#123;tabs&#125;&#125;&quot; wx:key=&quot;key&quot;&gt;</span><br><span class="line">      &lt;view bindtap=&quot;click&quot; data-index=&quot;&#123;&#123;index&#125;&#125;&quot; class=&quot;&#123;&#123;num==index?&apos;selected&apos;:&apos;&apos;&#125;&#125;&quot;&gt;&#123;&#123;item.name&#125;&#125;&lt;/view&gt;</span><br><span class="line">   &lt;/block&gt;</span><br><span class="line"> &lt;/view&gt;</span><br><span class="line"> &lt;view class=&quot;tab_content&quot;&gt;</span><br><span class="line">    &lt;view wx:if=&quot;&#123;&#123;num==0&#125;&#125;&quot;&gt;宝贝&lt;/view&gt; </span><br><span class="line">    &lt;view wx:if=&quot;&#123;&#123;num==1&#125;&#125;&quot;&gt;详情&lt;/view&gt; </span><br><span class="line">    &lt;view wx:if=&quot;&#123;&#123;num==2&#125;&#125;&quot;&gt;评论&lt;/view&gt; </span><br><span class="line">    &lt;view wx:if=&quot;&#123;&#123;num==3&#125;&#125;&quot;&gt;推荐商品&lt;/view&gt; </span><br><span class="line"> &lt;/view&gt;</span><br><span class="line">&lt;/view&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="js逻辑处理"><a href="#js逻辑处理" class="headerlink" title="js逻辑处理"></a>js逻辑处理</h3>  <font>
+    分析: <br>
+    ①选项卡的制作。<br>
+    ②页面的高度大于banner元素高度时候，tab元素内容应固定在页面顶部，反之回到原来位置。
+  </font>
+   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">Page(&#123;</span><br><span class="line">    data:&#123;</span><br><span class="line">        tab:[&#123;name:&apos;宝贝&apos;&#125;,&#123; name: &apos;详情&apos; &#125;,&#123; name: &apos;评论&apos; &#125;,&#123; name: &apos;推荐&apos; &#125;]</span><br><span class="line">        num:0</span><br><span class="line">    &#125;</span><br><span class="line">    onLoad:function(options)&#123;</span><br><span class="line">     //获取banner元素高度</span><br><span class="line">      var that = this;</span><br><span class="line">      const query = wx.createSelectorQuery();</span><br><span class="line">      query.select(&apos;.banner&apos;).boundingClientRect();</span><br><span class="line">      query.exec(function(rect)&#123;</span><br><span class="line">           that.setData(&#123;</span><br><span class="line">               bannerH:rect[0].height</span><br><span class="line">           &#125;)</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;,</span><br><span class="line">    click:function(e)&#123;</span><br><span class="line">      this.setData(&#123;</span><br><span class="line">          num: e.currentTarget.dataset.index</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">    //获取页面滚动高度</span><br><span class="line">    onPageScroll:function(e)&#123;</span><br><span class="line">        that.setData(&#123;</span><br><span class="line">            scrollTop:e.scrollTop</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h3 id="wxss布局"><a href="#wxss布局" class="headerlink" title="wxss布局"></a>wxss布局</h3>   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">.tab&#123;</span><br><span class="line">    display:flex;</span><br><span class="line">    justify-content:space-between;</span><br><span class="line">    align-items:center;</span><br><span class="line">&#125;</span><br><span class="line">.fixNav&#123;</span><br><span class="line">    position:fixed</span><br><span class="line">    top:0,</span><br><span class="line">    width:100%;</span><br><span class="line">    z-index:9999;</span><br><span class="line">    background-color:#fff;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://mwm0522.github.io/hexo/2019/10/09/miniprogram/" data-id="ck1ja8vj30003vcunk9ww5re2"
+         class="article-share-link">分享</a>
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/hexo/tags/小程序、吸顶/">小程序、吸顶</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+    
+  <nav class="article-nav">
+    
+    
+      <a href="/hexo/2019/08/21/hello-world/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">flex 布局</div>
+      </a>
+    
+  </nav>
+
+
+  
+
+  
+    
+  <div class="gitalk" id="gitalk-container"></div>
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
+  <script type="text/javascript">
+    var gitalk = new Gitalk({
+      clientID: 'cd02b9326f9b90293627',
+      clientSecret: '8ff3d57e2fd26e9c1b9235aa0925e3e3a5363335',
+      repo: 'hexo',
+      owner: 'mwm0522',
+      admin: ['mwm0522'],
+      // id: location.pathname,      // Ensure uniqueness and length less than 50
+      id: md5(location.pathname),
+      distractionFreeMode: false,  // Facebook-like distraction free mode
+      pagerDirection: 'last'
+    })
+
+  gitalk.render('gitalk-container')
+  </script>
+
+  
+
+</article>
+
+
+
+</section>
+  <footer class="footer">
+  <div class="outer">
+    <div class="float-right">
+      <ul class="list-inline">
+  
+    <li><i class="fe fe-smile-alt"></i> <span id="busuanzi_value_site_uv"></span></li>
+  
+</ul>
+    </div>
+    <ul class="list-inline">
+      <li>&copy; 2019 小米</li>
+      <li>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></li>
+      <li>Theme  <a href="https://github.com/zhwangart/hexo-theme-ocean">Ocean</a></li>
+    </ul>
+  </div>
+</footer>
+
+</main>
+
+<aside class="sidebar sidebar-specter">
+  
+    <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+    <div class="logo">
+      <a href="/hexo/"><img src="/hexo/images/hexo.svg" alt="小米"></a>
+    </div>
+  
+  <ul class="nav nav-main">
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/hexo/">首页</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/hexo/archives">归档</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/hexo/Photo">相册</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/hexo/About">关于</a>
+      </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link nav-item-search" title="Search">
+        <i class="fe fe-search"></i>
+        搜索
+      </a>
+    </li>
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      <div class="totop" id="totop">
+  <i class="fe fe-rocket"></i>
+</div>
+    </li>
+    <li class="nav-item">
+      
+        <a class="nav-item-link" target="_blank" href="/hexo/atom.xml" title="RSS Feed">
+          <i class="fe fe-feed"></i>
+        </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+  </aside>
+  <script src="/hexo/js/jquery-2.0.3.min.js"></script>
+<script src="/hexo/js/jquery.justifiedGallery.min.js"></script>
+<script src="/hexo/js/lazyload.min.js"></script>
+<script src="/hexo/js/busuanzi-2.3.pure.min.js"></script>
+
+  <script src="/hexo/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+  <script src="/hexo/js/tocbot.min.js"></script>
+  <script>
+    // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+    tocbot.init({
+      tocSelector: '.tocbot',
+      contentSelector: '.article-entry',
+      headingSelector: 'h1, h2, h3, h4, h5, h6',
+      hasInnerContainers: true,
+      scrollSmooth: true,
+      positionFixedSelector: '.tocbot',
+      positionFixedClass: 'is-position-fixed',
+      fixedSidebarOffset: 'auto',
+    });
+  </script>
+
+
+<script src="/hexo/js/ocean.js"></script>
+
+</body>
+</html>
