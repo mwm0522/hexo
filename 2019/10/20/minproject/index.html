@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <title>
-    flex 布局 |
+    小程序篇 |
     
     小米</title>
   
@@ -25,7 +25,7 @@
   <section class="outer">
   
 
-<article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
+<article id="post-minproject" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
   
   <div class="article-inner">
     
@@ -33,7 +33,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      flex 布局
+      小程序篇
     </h1>
   
   
@@ -46,8 +46,8 @@
 
     
       <div class="article-meta">
-        <a href="/hexo/2019/08/21/hello-world/" class="article-date">
-  <time datetime="2019-08-21T13:16:03.316Z" itemprop="datePublished">2019-08-21</time>
+        <a href="/hexo/2019/10/20/minproject/" class="article-date">
+  <time datetime="2019-10-20T09:48:34.000Z" itemprop="datePublished">2019-10-20</time>
 </a>
         
       </div>
@@ -70,42 +70,19 @@
       
 
       
-        <h4 id="布局是css的重点之一，提高代码的重用性，提高你的工作效率。"><a href="#布局是css的重点之一，提高代码的重用性，提高你的工作效率。" class="headerlink" title="布局是css的重点之一，提高代码的重用性，提高你的工作效率。"></a>布局是css的重点之一，提高代码的重用性，提高你的工作效率。</h4><a id="more"></a>
+        <h3 id="小程序请求封装"><a href="#小程序请求封装" class="headerlink" title="小程序请求封装"></a>小程序请求封装</h3><a id="more"></a>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">function commonAjax(url, types, data) &#123;</span><br><span class="line">  url:api请求地址</span><br><span class="line">  types：请求类型</span><br><span class="line">  data：请求参数键值对 &#123;&#125;</span><br><span class="line">   var app = getApp()</span><br><span class="line">   var promise = new Promise(function (resolve, reject, defaults) &#123;</span><br><span class="line">    wx.request(&#123;</span><br><span class="line">        url: app.globalData.http_post_prefix + url,</span><br><span class="line">        data: data,</span><br><span class="line">        dataType: &quot;json&quot;,</span><br><span class="line">        method: (types === 1) ? &apos;GET&apos; : &apos;POST&apos;,</span><br><span class="line">        header: (types === 1) ? &#123; &apos;content-type&apos;: &apos;application/json&apos; &#125; : &#123; &apos;content-type&apos;: &apos;application/x-www-form-urlencoded&apos; &#125;,</span><br><span class="line">        success: resolve,</span><br><span class="line">        fail: reject,</span><br><span class="line">        complete: defaults,</span><br><span class="line">      &#125;)</span><br><span class="line"> &#125;);</span><br><span class="line">  return promise;</span><br><span class="line">&#125;</span><br><span class="line">module.exports = &#123;</span><br><span class="line"> commonAjax:commonAjax</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>~~<font>概念:flex布局：英文全称Flexible Box,就是弹性布局的意思。采用Flex布局的元素，称为Flex容器（flex container），简称”容器”。它的所有子元素自动成为容器成员，称为Flex项目（flex item），简称”项目”。</font></p>
-<p>一、作用在容器上的属性（我这里只列举我们工作中经常用到的。）</p>
-<pre><code>1、flex-direction：决定主轴的方向 ，值有 row row-reverse column column-reverse
-
-    row:水平 正序排列
-
-    row-reverse:水平 倒序排列
-
-    column:纵向 正序排列
-
-    column-reverse:纵向 倒序排列</code></pre><p><img src="http://www.runoob.com/wp-content/uploads/2015/07/0cbe5f8268121114e87d0546e53cda6e.png" alt="blockchain" title="区块链"></p>
-<pre><code>2、flex-warp：决定项目成员怎么换行。 nowrap  wrap  wrap-reverse
-
-   nowrap：不换行 默认的</code></pre><p><img src="http://www.runoob.com/wp-content/uploads/2015/07/9da1f23965756568b4c6ea7124db7b9a.png" alt="blockchain" title="区块链"></p>
-<pre><code>wrap：换行，第一行在上方。</code></pre><p><img src="http://www.runoob.com/wp-content/uploads/2015/07/3c6b3c8b8fe5e26bca6fb57538cf72d9.jpg" alt="blockchain" title="区块链"></p>
-<pre><code>wrap-reverse：换行，第一行在下方。</code></pre><p><img src="http://www.runoob.com/wp-content/uploads/2015/07/fb4cf2bab8b6b744b64f6d7a99cd577c.jpg" alt="blockchain" title="区块链"></p>
-<pre><code>3、justify-content:决定了项目成员的对齐方式 flex-start | flex-end | center | space-between | space-around;</code></pre><p><img src="http://www.runoob.com/wp-content/uploads/2015/07/c55dfe8e3422458b50e985552ef13ba5.png" alt="blockchain" title="区块链"></p>
-<pre><code>4、align-items:项目在交叉轴上如何对齐 flex-start | flex-end | center | baseline | stretch;</code></pre><p><img src="http://www.runoob.com/wp-content/uploads/2015/07/2b0c39c7e7a80d5a784c8c2ca63cde17.png" alt="blockchain" title="区块链">    </p>
-<pre><code>5、align-content:多根轴线的对齐方式。 align-content: flex-start | flex-end | center | space-between | space-around | stretch;</code></pre><p><img src="http://www.runoob.com/wp-content/uploads/2015/07/f10918ccb8a13247c9d47715a2bd2c33.png" alt="blockchain" title="区块链">    </p>
-<p>二、封装代码：命名一个class名字，放在一个公用文件夹，用的时候可以直接调用。</p>
-<pre><code>垂直居中：
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">display: flex;</span><br><span class="line">   justify-content: center;</span><br><span class="line">   align-items: center;</span><br></pre></td></tr></table></figure>
-
-水平居中：
-```
-display: flex;
-justify-content: center;
-```~~</code></pre>
+<p><font> 在其他页面的调用：封装方法放入until </font></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">var untils = require(&apos;../../until/until&apos;)</span><br><span class="line">Page(&#123;</span><br><span class="line">  data&#123;&#125;</span><br><span class="line">  onLoad:function()&#123;</span><br><span class="line">    let data=&#123;a:1,b:2&#125;</span><br><span class="line">    untils.commonAjax(&apos;www.baidu.com&apos;,1,data)</span><br><span class="line">    .then(function(res)&#123;</span><br><span class="line">       //to do something</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://mwm0522.github.io/hexo/2019/08/21/hello-world/" data-id="ck1ytg1av0001fcunbcklwetm"
+      <a data-url="https://mwm0522.github.io/hexo/2019/10/20/minproject/" data-id="ck1ytg1bm0004fcunrqb5rvzd"
          class="article-share-link">分享</a>
       
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/hexo/tags/小程序码、请求封装、微信小程序地图、数组去重-获取头像昵称/">小程序码、请求封装、微信小程序地图、数组去重 获取头像昵称</a></li></ul>
+
     </footer>
 
   </div>
@@ -114,15 +91,11 @@ justify-content: center;
     
   <nav class="article-nav">
     
-      <a href="/hexo/2019/10/09/miniprogram/" class="article-nav-link">
-        <strong class="article-nav-caption">上一篇</strong>
-        <div class="article-nav-title">
-          
-            小程序页面滚动选型卡吸顶
-          
-        </div>
-      </a>
     
+      <a href="/hexo/2019/10/09/miniprogram/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">小程序页面滚动选型卡吸顶</div>
+      </a>
     
   </nav>
 
